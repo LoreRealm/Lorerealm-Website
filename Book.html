@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <link rel="icon" type="image/png" href="lorerealm.png" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>LoreRealm</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Skranji:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" type="text/css" href="Page.css" />
+        <script>
+            if (localStorage.getItem("lore-dark") === "true")
+                document.documentElement.classList.add("dark");
+        </script>
+    </head>
+    <body>
+        <nav id="Navigation">
+            <ul>
+                <li>
+                    <a href="Book.html"><h1 class="title">Lorerealm</h1></a>
+                </li>
+                <li>
+                    <a class="nav-btn" href="https://www.twitch.tv/lorerealm"
+                        >Twitch</a
+                    >
+                </li>
+                <li>
+                    <a class="nav-btn" href="https://fluxer.gg/pxAODwar"
+                        >Fluxer</a
+                    >
+                </li>
+                <li><button id="dark-toggle">🌙</button></li>
+            </ul>
+        </nav>
+
+        <div id="dice-overlay">
+            <div class="dice-inner">
+                <h2 class="dice-logo">LoreRealm</h2>
+                <p class="intro">
+                    LoreRealm, a place where you can experience campaigns,
+                    games, and stories
+                </p>
+                <div class="dice-container">
+                    <div id="d20" class="d20">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512"
+                        >
+                            <defs>
+                                <style>
+                                    .d20-path {
+                                        fill: none;
+                                        stroke: #c9b8e8;
+                                        stroke-width: 8;
+                                        stroke-linecap: round;
+                                        stroke-linejoin: round;
+                                    }
+                                </style>
+                            </defs>
+                            <path
+                                class="d20-path"
+                                d="M20.04 317.3C18 317.3 16 315.8 16 313.3V150.5c0-2.351 1.91-4.012 4.001-4.012c.6882 0 1.396 .18 2.062 .5748l76.62 45.1l-75.28 122.3C22.59 316.8 21.31 317.3 20.04 317.3zM231.4 405.2l-208.2-22.06c-4.27-.4821-7.123-4.117-7.123-7.995c0-1.401 .3725-2.834 1.185-4.161L122.7 215.1L231.4 405.2zM31.1 420.1c0-2.039 1.508-4.068 3.93-4.068c.1654 0 .3351 .0095 .5089 .0291l203.6 22.31v65.66C239.1 508.6 236.2 512 232 512c-1.113 0-2.255-.2387-3.363-.7565L34.25 423.6C32.69 422.8 31.1 421.4 31.1 420.1zM33.94 117.1c-1.289-.7641-1.938-2.088-1.938-3.417c0-1.281 .6019-2.567 1.813-3.364l150.8-98.59C185.1 10.98 187.3 10.64 188.6 10.64c4.32 0 8.003 3.721 8.003 8.022c0 1.379-.3788 2.818-1.237 4.214L115.5 165.8L33.94 117.1zM146.8 175.1l95.59-168.4C245.5 2.53 250.7 0 255.1 0s10.5 2.53 13.62 7.624l95.59 168.4H146.8zM356.4 207.1l-100.4 175.7L155.6 207.1H356.4zM476.1 415.1c2.422 0 3.93 2.029 3.93 4.068c0 1.378-.6893 2.761-2.252 3.524l-194.4 87.66c-1.103 .5092-2.241 .7443-3.35 .7443c-4.2 0-7.994-3.371-7.994-7.994v-65.69l203.6-22.28C475.7 416 475.9 415.1 476.1 415.1zM494.8 370.9C495.6 372.3 496 373.7 496 375.1c0 3.872-2.841 7.499-7.128 7.98l-208.2 22.06l108.6-190.1L494.8 370.9zM316.6 22.87c-.8581-1.395-1.237-2.834-1.237-4.214c0-4.301 3.683-8.022 8.003-8.022c1.308 0 2.675 .3411 4.015 1.11l150.8 98.59c1.211 .7973 1.813 2.076 1.813 3.353c0 1.325-.6488 2.649-1.938 3.429L396.5 165.8L316.6 22.87zM491.1 146.5c2.091 0 4.001 1.661 4.001 4.012v162.8c0 2.483-2.016 4.006-4.053 4.006c-1.27 0-2.549-.5919-3.353-1.912l-75.28-122.3l76.62-45.1C490.6 146.7 491.3 146.5 491.1 146.5z"
+                            />
+                            <circle
+                                cx="256"
+                                cy="256"
+                                r="50"
+                                fill="rgba(201,184,232,0.1)"
+                                stroke="none"
+                            />
+                            <text
+                                x="256"
+                                y="270"
+                                text-anchor="middle"
+                                dominant-baseline="middle"
+                                font-family="Cinzel Decorative"
+                                font-size="72"
+                                font-weight="bold"
+                                fill="#c9b8e8"
+                                id="dice-number"
+                            >
+                                ?
+                            </text>
+                        </svg>
+                    </div>
+                    <p class="dice-prompt">Click to Roll</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-page">
+            <div class="Campaigns">
+                <h4>Campaigns</h4>
+                <p>
+                    Path of the Gleaming Crystal — In an age of decay and ruin,
+                    your kingdom has crumbled. Galarion is no more, at least in
+                    most regions. Desperation breeds hope as the last remnants
+                    of the Glorious kingdom: Balaral flee aboard a great ship,
+                    setting sail toward uncharted waters and unclaimed lands.
+                    The promise of a new beginning, a fresh chance for survival,
+                    redemption, and a home drives many forward, away from the
+                    familiar ruins of Balaral's past greatness and toward the
+                    unknown. The objective is clear: establish a new
+                    civilization in a land full of mystery, wonder, and danger.
+                    This is a world where magic pulses in every tree, stone, and
+                    stream. The plants glow with ethereal light, strange
+                    creatures roam the untouched wilderness, crystals float
+                    about the skies and the soil hums with an ancient energy
+                    that no one truly understands. The expedition is not only
+                    one of survival and desperation but of discovery —
+                    uncovering new magics, unraveling the secrets of the land,
+                    and ultimately crafting a future from the ashes of the past.
+                </p>
+            </div>
+            <div class="tabs-row">
+                <div class="timeline-c1">
+                    <h5 id="timeline-tab">Timeline</h5>
+                    <div class="timeline-tree">
+                        <div class="timeline-inner">
+                            <div class="timeline-entry">
+                                <span class="timeline-label"
+                                    >Before the Clash</span
+                                >
+                                <p class="before">
+                                    Before the Clash between Realms, the Adamans
+                                    and other gods waged a hidden war that
+                                    lasted centuries. Mortals felt its effects
+                                    in shifting seasons, rising heat, melting
+                                    ice, and bitter cold cycles. The Ascended
+                                    were taken first—drawn into a secret realm
+                                    of fractured reflections of their past and
+                                    future, a truth many could not endure. That
+                                    realm was born from a single banished being
+                                    of crystal origin, once mortal, whose power
+                                    was confined but whose vision reached the
+                                    overworld. Driven by revenge, they battled
+                                    the gods of every realm, ultimately
+                                    destroying them and resetting existence.
+                                    Galarion was erased, and Balaral fell.
+                                </p>
+                            </div>
+                            <div class="timeline-entry">
+                                <span class="timeline-label"
+                                    >The Merchants Ship</span
+                                >
+                                <p class="End">
+                                    The Boat itself was a merchant ship
+                                    commandeered by the remaining government on
+                                    the North Galarion post; those inside the
+                                    merchant ship were not already allowed on
+                                    the boat. Mercenaries forced their way in
+                                    and the incompetent captain of the merchant
+                                    vessel didn't ever leave his quarters. Only
+                                    a few are able to get on, including our
+                                    heroes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Pathfinders">
+                    <h5 id="pathfinders-tab">Meet Your Pathfinders</h5>
+                    <div class="pathfinders-grid">
+                        <div class="pathfinders-inner">
+                            <div class="pathfinder-card">
+                                <a href="Cyril.html">
+                                    <div class="pathfinder-portrait-wrap">
+                                        <img
+                                            src="cyril.gif"
+                                            alt="Cyril"
+                                            class="pathfinder-portrait"
+                                        />
+                                        <div class="pathfinder-name-band">
+                                            Cyril
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="pathfinder-bio">
+                                    Cyril is a young Athamaru and
+                                    self-proclaimed entomologist. He grew up in
+                                    the heart of a reef trade outpost but moved
+                                    inland to explore the world, where he
+                                    discovered his love for nature and insects.
+                                    After having visions of the world's end, he
+                                    became obsessed and fearful of a possible
+                                    doomsday. He believed that living
+                                    underground would save him from destruction
+                                    on the surface and spent years digging
+                                    bunkers to live in. Of course, in the end,
+                                    his efforts were not enough when the earth
+                                    itself began crumbling.
+                                </div>
+                            </div>
+                            <div class="pathfinder-card">
+                                <a href="Noor.html">
+                                    <div class="pathfinder-portrait-wrap">
+                                        <img
+                                            src="noor.gif"
+                                            alt="Noor"
+                                            class="pathfinder-portrait"
+                                        />
+                                        <div class="pathfinder-name-band">
+                                            Noor
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="pathfinder-bio">
+                                    As a Samsaran, they remember all their past
+                                    lives, having countless memories and
+                                    knowledge from hundreds of lives lived. They
+                                    remember their past more strongly and
+                                    vividly than the average Samsaran. Very
+                                    trusting and very naive, and they are often
+                                    wrong about the "facts" and knowledge they
+                                    have. A simple person, loving nature and its
+                                    gifts, enjoying the experience of life as a
+                                    whole — the good and the bad of it. They are
+                                    a haunted soul — the amalgamation of
+                                    memories and different personalities causing
+                                    psychological damage.
+                                </div>
+                            </div>
+                            <div class="pathfinder-card">
+                                <a href="Ormus.html">
+                                    <div class="pathfinder-portrait-wrap">
+                                        <img
+                                            src="ormus.gif"
+                                            alt="Ormus"
+                                            class="pathfinder-portrait"
+                                        />
+                                        <div class="pathfinder-name-band">
+                                            Ormus
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="pathfinder-bio">
+                                    Ormus is a minotaur who's learning
+                                    everything he can about building from other
+                                    races. He continues to put his skills to the
+                                    test daily, mainly focused on improving his
+                                    craft. His family has always been a long
+                                    line of workers focused in construction and
+                                    he continued the line with a fascination for
+                                    building things with his hands. He studied
+                                    with dwarves and elves. He treasured his
+                                    son, Jeffersonius Rupert Paul Magnus the
+                                    Third, from the moment he was born.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="schedule-section">
+                <h5 id="schedule-tab" class="open">Stream Schedule</h5>
+                <div class="schedule-body open">
+                    <div class="cal-nav">
+                        <button class="cal-nav-btn" id="cal-prev">
+                            &#x2039;
+                        </button>
+                        <span id="cal-month-label">Loading&#x2026;</span>
+                        <button class="cal-nav-btn" id="cal-next">
+                            &#x203a;
+                        </button>
+                    </div>
+                    <div id="calendar-grid" class="calendar-grid">
+                        <div class="cal-loading">
+                            Consulting the stars&#x2026;
+                        </div>
+                    </div>
+                    <div id="upcoming-events" class="upcoming-events"></div>
+                </div>
+            </div>
+        </div>
+
+        <footer></footer>
+        <script src="ink.js"></script>
+    </body>
+</html>
