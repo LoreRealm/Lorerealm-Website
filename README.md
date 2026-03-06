@@ -4,7 +4,7 @@
 ![CSS](https://img.shields.io/badge/CSS-1F62FF?style=for-the-badge&logo=css3&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-2D79C7?style=for-the-badge&logo=typescript&logoColor=white)
 
-This repository contains the complete source code for the official website of my [Twitch RPG campaign](https://twitch.tv/lorerealm) [Website](https://lorerealm.github.io/Lorerealm-Website/).
+This repository contains the complete source code for the official website of my [Twitch RPG campaign](https://twitch.tv/lorerealm) [Website](https://lorerealm.quest).
 
 ## Proof of Authorship
 
