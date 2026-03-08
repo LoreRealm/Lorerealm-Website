@@ -3,6 +3,10 @@
 ![HTML](https://img.shields.io/badge/HTML-5E5CFF?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-1F62FF?style=for-the-badge&logo=css3&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-2D79C7?style=for-the-badge&logo=typescript&logoColor=white)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](http://shields.io/)
+[![made-with-rust](https://img.shields.io/badge/Made%20with-Rust-1f425f.svg)](https://www.rust-lang.org/)
+
 
 This repository contains the complete source code for the official website of my [Twitch RPG campaign](https://twitch.tv/lorerealm) [Website](https://lorerealm.quest).
 
