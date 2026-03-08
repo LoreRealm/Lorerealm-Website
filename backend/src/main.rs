@@ -65,13 +65,6 @@ async fn main() -> std::io::Result<()> {
                     .route("/health", web::get().to(health_check))
                     .route("/streams", web::get().to(api_streams)),
             )
-            .service(fs::Files::new("/static", "../frontend/build/static").prefer_utf8(true))
-            .service(
-                fs::Files::new("/", "../frontend/build")
-                    .index_file("index.html")
-                    .prefer_utf8(true)
-                    .default_handler(web::get().to(spa_index)),
-            )
     })
     .bind(format!("{}:{}", host, port))?
     .run()
