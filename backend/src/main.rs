@@ -16,17 +16,20 @@ async fn health_check() -> Result<impl Responder> {
     }))
 }
 
+#[get("/api/streams")]
 async fn api_streams() -> impl Responder {
-    let ical_url = "https://calendar.google.com/calendar/ical/.../public/basic.ics";
+    let ical_url =
+        "https://calendar.google.com/calendar/ical/lorerealm.calendar%40gmail.com/public/basic.ics";
 
     match reqwest::get(ical_url).await {
         Ok(response) => {
-            let calendar_text = response.text().await.unwrap_or_default();
+            let calendar_content = response.text().await.unwrap_or_default();
+
             HttpResponse::Ok()
                 .content_type("text/calendar")
-                .body(calendar_text)
+                .body(calendar_content)
         }
-        Err(_) => HttpResponse::InternalServerError().body("Failed to reach Google"),
+        Err(_) => HttpResponse::InternalServerError().body("Failed to fetch from Google"),
     }
 }
 async fn spa_index() -> Result<impl Responder> {
