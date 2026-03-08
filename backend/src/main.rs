@@ -34,8 +34,11 @@ async fn spa_index() -> Result<impl Responder> {
 async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
 
-    let port = std::env::var("PORT").unwrap_or_else(|_| "8080".to_string());
-    let host = std::env::var("HOST").unwrap_or_else(|_| "127.0.0.1".to_string());
+    let port = std::env::var("PORT").unwrap_or_else(|_| "10000".to_string());
+    let host = std::env::var("HOST").unwrap_or_else(|_| "0.0.0.0".to_string());
+
+    let address = format!("{}:{}", host, port);
+    println!("server starting on {}", address);
 
     let build_path = "../frontend/build";
     if !Path::new(build_path).exists() {
