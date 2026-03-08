@@ -836,7 +836,7 @@ async function fetchCalendar(): Promise<void> {
     renderUpcoming();
   } catch (err) {
     console.error("Backend calendar fetch failed:", err);
-    grid.innerHTML = `<div class="cal-error">The stars are silent. (Check backend connection)</div>`;
+    grid.innerHTML = `<div class="cal-error">The stars are silent.</div>`;
   }
 }
 

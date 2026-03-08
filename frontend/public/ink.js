@@ -742,7 +742,7 @@ function fetchCalendar() {
                 case 4:
                     err_1 = _a.sent();
                     console.error("Backend calendar fetch failed:", err_1);
-                    grid.innerHTML = "<div class=\"cal-error\">The stars are silent. (Check backend connection)</div>";
+                    grid.innerHTML = "<div class=\"cal-error\">The stars are silent.</div>";
                     return [3 /*break*/, 5];
                 case 5: return [2 /*return*/];
             }
