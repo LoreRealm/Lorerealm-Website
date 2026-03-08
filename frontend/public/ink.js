@@ -43,10 +43,6 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-var _a;
-var API_BASE = typeof process !== "undefined" && ((_a = process === null || process === void 0 ? void 0 : process.env) === null || _a === void 0 ? void 0 : _a.REACT_APP_API_URL)
-    ? process.env.REACT_APP_API_URL
-    : "https://lorerealm-website.onrender.com";
 var TIMING = {
     CLOSE_DELAY: 500,
     SPINE_FADE: 900,
@@ -698,6 +694,18 @@ function renderUpcoming() {
     htmlParts.push("</div>");
     container.innerHTML = htmlParts.join("");
 }
+// 1. Safe Environment Variable Handling
+// This prevents the "process is not defined" crash in the browser
+var getApiBase = function () {
+    if (typeof process !== "undefined" &&
+        process.env &&
+        process.env.REACT_APP_API_URL) {
+        return process.env.REACT_APP_API_URL;
+    }
+    // Fallback to your production Render URL
+    return "https://lorerealm-website.onrender.com";
+};
+var API_BASE = getApiBase();
 function fetchCalendar() {
     return __awaiter(this, void 0, void 0, function () {
         var grid, res, text, err_1;
@@ -711,12 +719,16 @@ function fetchCalendar() {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
-                    return [4 /*yield*/, fetch("".concat(API_BASE, "/api/streams"))];
+                    return [4 /*yield*/, fetch("".concat(API_BASE, "/api/streams"), {
+                            method: "GET",
+                            headers: {
+                                Accept: "text/calendar, text/plain"
+                            }
+                        })];
                 case 2:
                     res = _a.sent();
-                    if (!res.ok) {
-                        throw new Error("HTTP Error: ".concat(res.status));
-                    }
+                    if (!res.ok)
+                        throw new Error("HTTP ".concat(res.status));
                     return [4 /*yield*/, res.text()];
                 case 3:
                     text = _a.sent();
@@ -730,7 +742,7 @@ function fetchCalendar() {
                 case 4:
                     err_1 = _a.sent();
                     console.error("Backend calendar fetch failed:", err_1);
-                    grid.innerHTML = "<div class=\"cal-error\">The stars are silent. (Could not load schedule)</div>";
+                    grid.innerHTML = "<div class=\"cal-error\">The stars are silent. (Check backend connection)</div>";
                     return [3 /*break*/, 5];
                 case 5: return [2 /*return*/];
             }

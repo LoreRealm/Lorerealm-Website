@@ -1,10 +1,5 @@
 type Nullable<T> = T | null;
 
-const API_BASE: string =
-  typeof process !== "undefined" && process?.env?.REACT_APP_API_URL
-    ? process.env.REACT_APP_API_URL
-    : "https://lorerealm-website.onrender.com";
-
 const TIMING = {
   CLOSE_DELAY: 500,
   SPINE_FADE: 900,
@@ -793,6 +788,22 @@ function renderUpcoming(): void {
   container.innerHTML = htmlParts.join("");
 }
 
+// 1. Safe Environment Variable Handling
+// This prevents the "process is not defined" crash in the browser
+const getApiBase = (): string => {
+  if (
+    typeof process !== "undefined" &&
+    process.env &&
+    process.env.REACT_APP_API_URL
+  ) {
+    return process.env.REACT_APP_API_URL;
+  }
+  // Fallback to your production Render URL
+  return "https://lorerealm-website.onrender.com";
+};
+
+const API_BASE = getApiBase();
+
 async function fetchCalendar(): Promise<void> {
   const grid = document.getElementById("calendar-grid");
   if (!grid) return;
@@ -800,13 +811,16 @@ async function fetchCalendar(): Promise<void> {
   grid.innerHTML = `<div class="cal-loading">Consulting the stars…</div>`;
 
   try {
-    const res = await fetch(`${API_BASE}/api/streams`);
+    const res = await fetch(`${API_BASE}/api/streams`, {
+      method: "GET",
+      headers: {
+        Accept: "text/calendar, text/plain",
+      },
+    });
 
-    if (!res.ok) {
-      throw new Error(`HTTP Error: ${res.status}`);
-    }
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-    const text: string = await res.text();
+    const text = await res.text();
 
     if (!text.includes("BEGIN:VCALENDAR")) {
       throw new Error("Invalid iCal data received from backend");
@@ -822,7 +836,7 @@ async function fetchCalendar(): Promise<void> {
     renderUpcoming();
   } catch (err) {
     console.error("Backend calendar fetch failed:", err);
-    grid.innerHTML = `<div class="cal-error">The stars are silent. (Could not load schedule)</div>`;
+    grid.innerHTML = `<div class="cal-error">The stars are silent. (Check backend connection)</div>`;
   }
 }
 
