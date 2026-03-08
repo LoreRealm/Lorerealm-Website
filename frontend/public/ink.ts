@@ -815,8 +815,6 @@ async function fetchCalendar() {
       grid.innerHTML = `<div class="cal-error">The stars are silent. (Could not load schedule)</div>`;
     }
   }
-  console.error("All calendar proxies failed:", lastErr);
-  grid.innerHTML = `<div class="cal-error">Could not load the schedule. Please try again later.</div>`;
 }
 
 function initCalendar(): void {
