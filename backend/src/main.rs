@@ -1,6 +1,6 @@
 use actix_cors::Cors;
 use actix_files as fs;
-use actix_web::{App, HttpResponse, HttpServer, Responder, Result, middleware, web};
+use actix_web::{App, HttpResponse, HttpServer, Responder, Result, get, middleware, web};
 use std::path::Path;
 
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -16,16 +16,19 @@ async fn health_check() -> Result<impl Responder> {
     }))
 }
 
-async fn api_streams() -> Result<impl Responder> {
-    Ok(HttpResponse::Ok().json(serde_json::json!({
-        "streams": [
-            {"name": "Pathfinder Session", "date": "2026-03-08"},
-            {"name": "Campaign Planning", "date": "2026-03-15"},
-            {"name": "Character Creation", "date": "2026-03-22"}
-        ]
-    })))
-}
+async fn api_streams() -> impl Responder {
+    let ical_url = "https://calendar.google.com/calendar/ical/.../public/basic.ics";
 
+    match reqwest::get(ical_url).await {
+        Ok(response) => {
+            let calendar_text = response.text().await.unwrap_or_default();
+            HttpResponse::Ok()
+                .content_type("text/calendar")
+                .body(calendar_text)
+        }
+        Err(_) => HttpResponse::InternalServerError().body("Failed to reach Google"),
+    }
+}
 async fn spa_index() -> Result<impl Responder> {
     Ok(fs::NamedFile::open("../frontend/build/index.html")?)
 }
