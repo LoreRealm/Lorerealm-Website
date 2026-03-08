@@ -16,7 +16,6 @@ async fn health_check() -> Result<impl Responder> {
     }))
 }
 
-#[get("/api/streams")]
 async fn api_streams() -> impl Responder {
     let ical_url =
         "https://calendar.google.com/calendar/ical/lorerealm.calendar%40gmail.com/public/basic.ics";
@@ -31,9 +30,6 @@ async fn api_streams() -> impl Responder {
         }
         Err(_) => HttpResponse::InternalServerError().body("Failed to fetch from Google"),
     }
-}
-async fn spa_index() -> Result<impl Responder> {
-    Ok(fs::NamedFile::open("../frontend/build/index.html")?)
 }
 
 #[actix_web::main]
@@ -72,6 +68,7 @@ async fn main() -> std::io::Result<()> {
                     .route("/health", web::get().to(health_check))
                     .route("/streams", web::get().to(api_streams)),
             )
+            .service(fs::Files::new("/", "../frontend/build").index_file("index.html"))
     })
     .bind(format!("{}:{}", host, port))?
     .run()
