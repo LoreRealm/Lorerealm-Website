@@ -1,0 +1,469 @@
+import { useState, useEffect } from "react";
+import "./Page.css";
+import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
+
+export default function Home() {
+  const [isDark] = useState(() => {
+    return localStorage.getItem("lore-dark") === "true";
+  });
+
+  const [heroPoints] = useState([false, false, false]);
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    localStorage.setItem("lore-dark", isDark);
+  }, [isDark]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (typeof window.reinitLoreRealm === "function") {
+        console.log("Reinitializing character page");
+        window.reinitLoreRealm();
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <>
+      <link rel="icon" type="image/png" href="lorerealm.png" />
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Cyril — LoreRealm</title>
+      <script>
+        if (localStorage.getItem("lore-dark") === "true")
+        document.documentElement.classList.add("dark");
+      </script>
+      <Navbar />
+      <div className="character-page">
+        <Link to="/" className="back-link">
+          ← Back
+        </Link>
+        <div className="character-switcher">
+          <h4 className="character-title">
+            Cyril <span className="switcher-caret">▾</span>
+          </h4>
+          <div className="party-dropdown">
+            <Link to="/Ormus" className="party-link">
+              Ormus
+            </Link>
+            <Link to="/Cyril" className="party-link active">
+              Cyril
+            </Link>
+            <Link to="/Noor" className="party-link">
+              Noor
+            </Link>
+          </div>
+        </div>
+        <div className="character-sheet">
+          <fieldset className="sheet-background">
+            <legend className="basics">Info</legend>
+            <fieldset className="ancestry">Ancestry</fieldset>
+            <dt>Athamaru</dt>
+            <dd>Kaleidoscopic Athamaru</dd>
+            <fieldset className="background">Background</fieldset>
+            <dt>Miner</dt>
+            <fieldset className="class">Class</fieldset>
+            <dt>Ranger/Druid</dt>
+          </fieldset>
+          <fieldset className="sheet-stats">
+            <legend className="sheet-attributes">Attributes</legend>
+            <dl>
+              <div>
+                <dt>Strength</dt>
+                <dd>+4</dd>
+              </div>
+              <div>
+                <dt>Dexterity</dt>
+                <dd>+3</dd>
+              </div>
+              <div>
+                <dt>Constitution</dt>
+                <dd>+3</dd>
+              </div>
+              <div>
+                <dt>Intelligence</dt>
+                <dd>0</dd>
+              </div>
+              <div>
+                <dt>Wisdom</dt>
+                <dd>+3</dd>
+              </div>
+              <div>
+                <dt>Charisma</dt>
+                <dd>0</dd>
+              </div>
+            </dl>
+          </fieldset>
+          <fieldset className="sheet-defensive">
+            <legend>Defense &amp; Senses</legend>
+            <div className="def-section">
+              <h6>Defenses</h6>
+              <dl>
+                <div>
+                  <dt>Armor Class</dt>
+                  <dd>23</dd>
+                </div>
+                <div>
+                  <dt>Shield</dt>
+                  <dd>0</dd>
+                </div>
+                <div>
+                  <dt>Fortitude</dt>
+                  <dd>
+                    14<span className="proficiency">E</span>
+                  </dd>
+                </div>
+                <div>
+                  <dt>Reflex</dt>
+                  <dd>
+                    16<span className="proficiency">M</span>
+                  </dd>
+                </div>
+                <div>
+                  <dt>Will</dt>
+                  <dd>
+                    14<span className="proficiency">E</span>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+            <div className="def-section def-section--senses">
+              <h6>Senses</h6>
+              <dl>
+                <div>
+                  <dt>Language</dt>
+                  <dd>Common, Tremor, Thalassic, Wildsong</dd>
+                </div>
+                <div>
+                  <dt>Perception</dt>
+                  <dd>16</dd>
+                </div>
+                <div>
+                  <dt>Speed</dt>
+                  <dd>30</dd>
+                </div>
+              </dl>
+            </div>
+          </fieldset>
+          <fieldset className="sheet-skills">
+            <legend>Skills</legend>
+            <dl>
+              <dt>Acrobatics</dt>
+              <dd>
+                12<span className="proficiency">T</span>
+              </dd>
+              <dt>Arcana</dt>
+              <dd>0</dd>
+              <dt>Athletics</dt>
+              <dd>
+                13<span className="proficiency">T</span>
+              </dd>
+              <dt>Crafting</dt>
+              <dd>
+                11<span className="proficiency">E</span>
+              </dd>
+              <dt>Deception</dt>
+              <dd>
+                9<span className="proficiency">T</span>
+              </dd>
+              <dt>Diplomacy</dt>
+              <dd>
+                9<span className="proficiency">T</span>
+              </dd>
+              <dt>Intimidation</dt>
+              <dd>
+                9<span className="proficiency">T</span>
+              </dd>
+              <dt>Medicine</dt>
+              <dd>12</dd>
+              <dt>Nature</dt>
+              <dd>
+                14<span className="proficiency">E</span>
+              </dd>
+              <dt>Occultism</dt>
+              <dd>0</dd>
+              <dt>Performance</dt>
+              <dd>0</dd>
+              <dt>Religion</dt>
+              <dd>3</dd>
+              <dt>Society</dt>
+              <dd>
+                11<span className="proficiency">E</span>
+              </dd>
+              <dt>Stealth</dt>
+              <dd>
+                12<span className="proficiency">T</span>
+              </dd>
+              <dt>Survival</dt>
+              <dd>
+                12<span className="proficiency">T</span>
+              </dd>
+              <dt>Thievery</dt>
+              <dd>3</dd>
+            </dl>
+          </fieldset>
+          <fieldset className="hero-points">
+            <legend className="hero-points-sheet">Hero Points</legend>
+            <div className="hero-points-icons">
+              <svg
+                className={`hero-point-icon ${heroPoints[0] ? "spent" : ""}`}
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 792 612"
+                role="button"
+                tabIndex="0"
+                aria-pressed="false"
+                aria-label="Hero Point"
+              >
+                <g>
+                  <path
+                    className="st7"
+                    d="M507.15,437.85l-68.5-26.56,21.09-172.38,64.77-53.41c.25-.4,1.39-.16,1.77.06.34.19-.2.93.84,1.78-8.31,83.95-9.01,169.07-19.98,250.51Z"
+                  />
+                  <path
+                    className="st6"
+                    d="M288.12,466.8c-.95-.21-3.02-.7-4.44-2.3-4.47-87.45-16.39-174.58-18.35-260.11l51.89,61.76,35.67,210.07-64.77-9.41Z"
+                  />
+                  <path
+                    className="st0"
+                    d="M405.04,50.8l53.26,179.2,62.77-50.52c.31,2.44,2.82,3.71,3.45,6.02l-64.77,53.41-21.09,172.38,68.5,26.56c-.39,2.88-2.76,3.18-3.66,5.86l-66.67-24.58-33.14,140.46c-2.5.24-5.11.48-7.6.09l31.11-134.02-64.98,56.54,31.59,78.53c-3.06.5-6.28.86-8.75-1.4l-29.99-74.41-61.03-9.6c-3.73-4.2-7.35-2.36-5.9-8.52l64.77,9.41-35.67-210.07-51.89-61.76c-.06-2.64.61-5.37,3.61-6.17l50.5,58.2,28.77-89.05-79.16,26.53c-.3-2.7.34-5.91,2.18-8.28l80-27.36,34.7-105.08c1.86-1.6,5.65-1.04,7.85-1.2l-35.05,108.18,90.56,66.83-51.99-177.16c2.33.1,5.73-.88,7.72.98ZM430.77,411.59l21.34-173.24-95.83-70.86-31.57,97.4,35.41,208.73,70.66-62.04Z"
+                  />
+                  <path
+                    className="st2"
+                    d="M521.06,179.48l-62.77,50.52-53.26-179.2c40.94,38.35,78.13,82.67,119.24,123.93-1.39,3.01-2.84,3.59-3.21,4.75Z"
+                  />
+                  <path
+                    className="st8"
+                    d="M397.32,49.82l51.99,177.16-90.56-66.83,35.05-108.18c0-.87.87-1.34,1.36-1.99.57-.76,1.4-.2,2.17-.16Z"
+                  />
+                  <path
+                    className="st6"
+                    d="M503.49,443.71c.66.24,1.97,1.27,1.83,1.96-.12.6-93.18,108.45-101.64,113.92l33.14-140.46,66.67,24.58Z"
+                  />
+                  <path
+                    className="st4"
+                    d="M385.94,53.18l-34.7,105.08-80,27.36c34.29-44.12,75.22-89.59,114.7-132.45Z"
+                  />
+                  <path
+                    className="st3"
+                    d="M396.07,559.68c.15.72-.5.73-.89,1.71-.24.61-1-.39-1.4-.66l-31.59-78.53,64.98-56.54-31.11,134.02Z"
+                  />
+                  <path
+                    className="st5"
+                    d="M268.95,198.22c-.8-1.02-1.69-3.65.12-4.32l79.16-26.53-28.77,89.05-50.5-58.2Z"
+                  />
+                  <path
+                    className="st1"
+                    d="M385.04,559.34c-.38-.09-1.86.66-2.63-.12-28.9-29.48-62.17-54.39-88.38-83.9l61.03,9.6,29.99,74.41Z"
+                  />
+                  <polygon
+                    className="st2"
+                    points="430.77 411.59 360.11 473.63 324.71 264.9 356.28 167.5 452.11 238.35 430.77 411.59"
+                  />
+                </g>
+              </svg>
+              <svg
+                className={`hero-point-icon ${heroPoints[1] ? "spent" : ""}`}
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 792 612"
+                role="button"
+                tabIndex="0"
+                aria-pressed="false"
+                aria-label="Hero Point"
+              >
+                <g>
+                  <path
+                    className="st7"
+                    d="M507.15,437.85l-68.5-26.56,21.09-172.38,64.77-53.41c.25-.4,1.39-.16,1.77.06.34.19-.2.93.84,1.78-8.31,83.95-9.01,169.07-19.98,250.51Z"
+                  />
+                  <path
+                    className="st6"
+                    d="M288.12,466.8c-.95-.21-3.02-.7-4.44-2.3-4.47-87.45-16.39-174.58-18.35-260.11l51.89,61.76,35.67,210.07-64.77-9.41Z"
+                  />
+                  <path
+                    className="st0"
+                    d="M405.04,50.8l53.26,179.2,62.77-50.52c.31,2.44,2.82,3.71,3.45,6.02l-64.77,53.41-21.09,172.38,68.5,26.56c-.39,2.88-2.76,3.18-3.66,5.86l-66.67-24.58-33.14,140.46c-2.5.24-5.11.48-7.6.09l31.11-134.02-64.98,56.54,31.59,78.53c-3.06.5-6.28.86-8.75-1.4l-29.99-74.41-61.03-9.6c-3.73-4.2-7.35-2.36-5.9-8.52l64.77,9.41-35.67-210.07-51.89-61.76c-.06-2.64.61-5.37,3.61-6.17l50.5,58.2,28.77-89.05-79.16,26.53c-.3-2.7.34-5.91,2.18-8.28l80-27.36,34.7-105.08c1.86-1.6,5.65-1.04,7.85-1.2l-35.05,108.18,90.56,66.83-51.99-177.16c2.33.1,5.73-.88,7.72.98ZM430.77,411.59l21.34-173.24-95.83-70.86-31.57,97.4,35.41,208.73,70.66-62.04Z"
+                  />
+                  <path
+                    className="st2"
+                    d="M521.06,179.48l-62.77,50.52-53.26-179.2c40.94,38.35,78.13,82.67,119.24,123.93-1.39,3.01-2.84,3.59-3.21,4.75Z"
+                  />
+                  <path
+                    className="st8"
+                    d="M397.32,49.82l51.99,177.16-90.56-66.83,35.05-108.18c0-.87.87-1.34,1.36-1.99.57-.76,1.4-.2,2.17-.16Z"
+                  />
+                  <path
+                    className="st6"
+                    d="M503.49,443.71c.66.24,1.97,1.27,1.83,1.96-.12.6-93.18,108.45-101.64,113.92l33.14-140.46,66.67,24.58Z"
+                  />
+                  <path
+                    className="st4"
+                    d="M385.94,53.18l-34.7,105.08-80,27.36c34.29-44.12,75.22-89.59,114.7-132.45Z"
+                  />
+                  <path
+                    className="st3"
+                    d="M396.07,559.68c.15.72-.5.73-.89,1.71-.24.61-1-.39-1.4-.66l-31.59-78.53,64.98-56.54-31.11,134.02Z"
+                  />
+                  <path
+                    className="st5"
+                    d="M268.95,198.22c-.8-1.02-1.69-3.65.12-4.32l79.16-26.53-28.77,89.05-50.5-58.2Z"
+                  />
+                  <path
+                    className="st1"
+                    d="M385.04,559.34c-.38-.09-1.86.66-2.63-.12-28.9-29.48-62.17-54.39-88.38-83.9l61.03,9.6,29.99,74.41Z"
+                  />
+                  <polygon
+                    className="st2"
+                    points="430.77 411.59 360.11 473.63 324.71 264.9 356.28 167.5 452.11 238.35 430.77 411.59"
+                  />
+                </g>
+              </svg>
+              <svg
+                className={`hero-point-icon ${heroPoints[2] ? "spent" : ""}`}
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 792 612"
+                role="button"
+                tabIndex="0"
+                aria-pressed="false"
+                aria-label="Hero Point"
+              >
+                <g>
+                  <path
+                    className="st7"
+                    d="M507.15,437.85l-68.5-26.56,21.09-172.38,64.77-53.41c.25-.4,1.39-.16,1.77.06.34.19-.2.93.84,1.78-8.31,83.95-9.01,169.07-19.98,250.51Z"
+                  />
+                  <path
+                    className="st6"
+                    d="M288.12,466.8c-.95-.21-3.02-.7-4.44-2.3-4.47-87.45-16.39-174.58-18.35-260.11l51.89,61.76,35.67,210.07-64.77-9.41Z"
+                  />
+                  <path
+                    className="st0"
+                    d="M405.04,50.8l53.26,179.2,62.77-50.52c.31,2.44,2.82,3.71,3.45,6.02l-64.77,53.41-21.09,172.38,68.5,26.56c-.39,2.88-2.76,3.18-3.66,5.86l-66.67-24.58-33.14,140.46c-2.5.24-5.11.48-7.6.09l31.11-134.02-64.98,56.54,31.59,78.53c-3.06.5-6.28.86-8.75-1.4l-29.99-74.41-61.03-9.6c-3.73-4.2-7.35-2.36-5.9-8.52l64.77,9.41-35.67-210.07-51.89-61.76c-.06-2.64.61-5.37,3.61-6.17l50.5,58.2,28.77-89.05-79.16,26.53c-.3-2.7.34-5.91,2.18-8.28l80-27.36,34.7-105.08c1.86-1.6,5.65-1.04,7.85-1.2l-35.05,108.18,90.56,66.83-51.99-177.16c2.33.1,5.73-.88,7.72.98ZM430.77,411.59l21.34-173.24-95.83-70.86-31.57,97.4,35.41,208.73,70.66-62.04Z"
+                  />
+                  <path
+                    className="st2"
+                    d="M521.06,179.48l-62.77,50.52-53.26-179.2c40.94,38.35,78.13,82.67,119.24,123.93-1.39,3.01-2.84,3.59-3.21,4.75Z"
+                  />
+                  <path
+                    className="st8"
+                    d="M397.32,49.82l51.99,177.16-90.56-66.83,35.05-108.18c0-.87.87-1.34,1.36-1.99.57-.76,1.4-.2,2.17-.16Z"
+                  />
+                  <path
+                    className="st6"
+                    d="M503.49,443.71c.66.24,1.97,1.27,1.83,1.96-.12.6-93.18,108.45-101.64,113.92l33.14-140.46,66.67,24.58Z"
+                  />
+                  <path
+                    className="st4"
+                    d="M385.94,53.18l-34.7,105.08-80,27.36c34.29-44.12,75.22-89.59,114.7-132.45Z"
+                  />
+                  <path
+                    className="st3"
+                    d="M396.07,559.68c.15.72-.5.73-.89,1.71-.24.61-1-.39-1.4-.66l-31.59-78.53,64.98-56.54-31.11,134.02Z"
+                  />
+                  <path
+                    className="st5"
+                    d="M268.95,198.22c-.8-1.02-1.69-3.65.12-4.32l79.16-26.53-28.77,89.05-50.5-58.2Z"
+                  />
+                  <path
+                    className="st1"
+                    d="M385.04,559.34c-.38-.09-1.86.66-2.63-.12-28.9-29.48-62.17-54.39-88.38-83.9l61.03,9.6,29.99,74.41Z"
+                  />
+                  <polygon
+                    className="st2"
+                    points="430.77 411.59 360.11 473.63 324.71 264.9 356.28 167.5 452.11 238.35 430.77 411.59"
+                  />
+                </g>
+              </svg>
+            </div>
+          </fieldset>
+        </div>
+
+        <h5 id="backstory-tab">Backstory</h5>
+        <div className="backstory-body">
+          <div>
+            <p>
+              Cyril grew up in the heart of a shallow reef trade outpost. While
+              he was taught the typical trades of Athamaru, such as coral and
+              pearl collection, he was much more interested in terrestrial
+              offerings. The community found his interests odd, but he was
+              accepted nonetheless. Cyril hung out around ships anchored around
+              the outpost whenever he could and begged the terrestrials aboard
+              to let him travel with them, which they usually laughed off. Years
+              later, as a teenager, Cyril finally set off for the surface on
+              their own, on a self-ordained mission to find terrestrial
+              treasures never seen before. Cyril surfaced at a port-side fishing
+              town and immediately went ashore. He found the town interesting
+              but was much more interested in the forest surrounding the town's
+              less-developed outskirts. He wandered the countryside and became a
+              nuisance to those who resided there; farmers would wake up to find
+              him sleeping on straw bales, trudging through their fields, and
+              even helping himself to produce from their gardens. They ushered
+              the out-of-place Athamaru away, which made Cyril realize that, on
+              the surface, he had to work to live. He reluctantly took a job on
+              a fishing vessel as it was the only place that would take him,
+              with the proprietors assuming Cyril would be knowledgeable of the
+              ocean and, therefore, beneficial to have aboard. Unfortunately for
+              his boss, Cyril didn't have an innate love for the sea. He'd spent
+              his whole life underwater, so seeing more of the water wasn't
+              something he cared for. He worked with bare minimum enthusiasm,
+              only doing it to afford a place to live. Cyril hated working on
+              the ship, so whenever he had time off, he took full advantage of
+              it and spent days at a time in the woods. In the forest, he
+              discovered his love for bugs. Cyril found insects to be completely
+              different from other terrestrial animals, and the seemingly
+              unlimited variety of them kept his attention. He dedicated himself
+              to learning more about insects: he bought encyclopedias, studied
+              them in the wild, and caught them with a homemade bug net. Always
+              doing his best to respect nature, Cyril released any bugs he
+              caught – unless he managed to befriend them, in which case he
+              stowed them away in his jacket pockets or in elaborate terrariums
+              at home. As years passed, he spent more time adventuring and
+              worked fewer shifts. Eventually, he stopped going to work
+              altogether without as much as a warning. He became a part of the
+              rather small bug-catcher scene in town, where he made a couple of
+              friends. Cyril's entire life revolved around catching, pinning,
+              and trading bugs, until one day he returned to the forest to find
+              that much of it had been destroyed in a logging operation. For
+              months, Cyril was a full-on emotional wreck as he mourned the loss
+              of the ecosystem. His mourning lasted until, in the middle of
+              another restless night, he had a vision of a fiery spirit that
+              told him the world is coming to an end. It insisted that ruin will
+              befall the entire world just as it did the forest. The spirit
+              disappeared before Cyril managed to get in a word of his own,
+              leaving him alone to fret. After several more days of inaction,
+              Cyril decided that if the world would be ruined like the forest,
+              he should find a way to preserve as much insect life as possible.
+              After confiding in books by certain conspiracy-minded authors, he
+              determined his best course of action was to dig a vast underground
+              bunker where he could ride out the end of the world and preserve
+              his terrariums. Cyril began digging below his downtown home right
+              away, spending years carving out a tunnel system that linked
+              several large rooms. With no idea he needed to consider the
+              structural integrity of the tunnels, they eventually collapsed,
+              causing Cyril's home, nearby buildings, and roads to all cave in.
+              It didn't take long for the townsfolk to determine he was
+              responsible for ruining their homes. They chased him down, where
+              he pleaded with the (understandably) angry townspeople. He told
+              them about the spirit and the coming end of the world, but the
+              townspeople were not swayed by his argument. They drove him out of
+              town, forcing him to leave many of his belongings – and bug
+              friends – behind. Homeless and alone, Cyril remained more worried
+              about digging his bunker than he was about meeting his basic
+              needs. He traveled from place to place, starting to dig new
+              bunkers, before always being stopped for one reason or another. By
+              the time the world began to crumble, he was only just beginning to
+              excavate a new home.
+            </p>
+          </div>
+        </div>
+      </div>
+      <footer></footer>
+    </>
+  );
+}
