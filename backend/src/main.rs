@@ -51,10 +51,11 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         let cors = Cors::default()
             .allowed_origin("http://lorerealm.netlify.app")
+            .allowed_origin("https://lorerealm.quest")
             .allowed_origin("http://127.0.0.1:3000")
             .allowed_origin("http://localhost:8080")
             .allowed_methods(vec!["GET", "POST", "PUT", "DELETE"])
-            .allowed_headers(vec!["Content-Type", "Authorization"])
+            .allowed_headers(vec!["Content-Type", "Authorization", "Accept"])
             .max_age(3600);
 
         App::new()
