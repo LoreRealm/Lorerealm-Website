@@ -43,7 +43,10 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-var API_BASE = process.env.REACT_APP_API_URL || "https://lorerealm-website.onrender.com";
+var _a;
+var API_BASE = typeof process !== "undefined" && ((_a = process === null || process === void 0 ? void 0 : process.env) === null || _a === void 0 ? void 0 : _a.REACT_APP_API_URL)
+    ? process.env.REACT_APP_API_URL
+    : "https://lorerealm-website.onrender.com";
 var TIMING = {
     CLOSE_DELAY: 500,
     SPINE_FADE: 900,
@@ -697,7 +700,7 @@ function renderUpcoming() {
 }
 function fetchCalendar() {
     return __awaiter(this, void 0, void 0, function () {
-        var grid, lastErr, _i, CAL_PROXIES_1, proxy, res, text, err_1;
+        var grid, res, text, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -705,37 +708,31 @@ function fetchCalendar() {
                     if (!grid)
                         return [2 /*return*/];
                     grid.innerHTML = "<div class=\"cal-loading\">Consulting the stars\u2026</div>";
-                    _i = 0, CAL_PROXIES_1 = CAL_PROXIES;
                     _a.label = 1;
                 case 1:
-                    if (!(_i < CAL_PROXIES_1.length)) return [3 /*break*/, 7];
-                    proxy = CAL_PROXIES_1[_i];
-                    _a.label = 2;
-                case 2:
-                    _a.trys.push([2, 5, , 6]);
+                    _a.trys.push([1, 4, , 5]);
                     return [4 /*yield*/, fetch("".concat(API_BASE, "/api/streams"))];
-                case 3:
+                case 2:
                     res = _a.sent();
-                    if (!res.ok)
-                        throw new Error("HTTP ".concat(res.status));
+                    if (!res.ok) {
+                        throw new Error("HTTP Error: ".concat(res.status));
+                    }
                     return [4 /*yield*/, res.text()];
-                case 4:
+                case 3:
                     text = _a.sent();
-                    if (!text.includes("BEGIN:VCALENDAR"))
-                        throw new Error("Not iCal data");
+                    if (!text.includes("BEGIN:VCALENDAR")) {
+                        throw new Error("Invalid iCal data received from backend");
+                    }
                     calEvents = expandCalEvents(parseICal(text), new Date(calYear - 1, 0, 1), new Date(calYear + 2, 0, 1));
                     renderCalendar();
                     renderUpcoming();
-                    return [2 /*return*/];
-                case 5:
+                    return [3 /*break*/, 5];
+                case 4:
                     err_1 = _a.sent();
                     console.error("Backend calendar fetch failed:", err_1);
                     grid.innerHTML = "<div class=\"cal-error\">The stars are silent. (Could not load schedule)</div>";
-                    return [3 /*break*/, 6];
-                case 6:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 7: return [2 /*return*/];
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     });

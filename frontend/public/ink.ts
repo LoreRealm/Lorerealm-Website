@@ -1,7 +1,9 @@
 type Nullable<T> = T | null;
 
-const API_BASE =
-  process.env.REACT_APP_API_URL || "https://lorerealm-website.onrender.com";
+const API_BASE: string =
+  typeof process !== "undefined" && process?.env?.REACT_APP_API_URL
+    ? process.env.REACT_APP_API_URL
+    : "https://lorerealm-website.onrender.com";
 
 const TIMING = {
   CLOSE_DELAY: 500,
@@ -791,29 +793,36 @@ function renderUpcoming(): void {
   container.innerHTML = htmlParts.join("");
 }
 
-async function fetchCalendar() {
+async function fetchCalendar(): Promise<void> {
   const grid = document.getElementById("calendar-grid");
   if (!grid) return;
-  grid.innerHTML = `<div class="cal-loading">Consulting the stars\u2026</div>`;
-  let lastErr;
-  for (const proxy of CAL_PROXIES) {
-    try {
-      const res = await fetch(`${API_BASE}/api/streams`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const text = await res.text();
-      if (!text.includes("BEGIN:VCALENDAR")) throw new Error("Not iCal data");
-      calEvents = expandCalEvents(
-        parseICal(text),
-        new Date(calYear - 1, 0, 1),
-        new Date(calYear + 2, 0, 1),
-      );
-      renderCalendar();
-      renderUpcoming();
-      return;
-    } catch (err) {
-      console.error("Backend calendar fetch failed:", err);
-      grid.innerHTML = `<div class="cal-error">The stars are silent. (Could not load schedule)</div>`;
+
+  grid.innerHTML = `<div class="cal-loading">Consulting the stars…</div>`;
+
+  try {
+    const res = await fetch(`${API_BASE}/api/streams`);
+
+    if (!res.ok) {
+      throw new Error(`HTTP Error: ${res.status}`);
     }
+
+    const text: string = await res.text();
+
+    if (!text.includes("BEGIN:VCALENDAR")) {
+      throw new Error("Invalid iCal data received from backend");
+    }
+
+    calEvents = expandCalEvents(
+      parseICal(text),
+      new Date(calYear - 1, 0, 1),
+      new Date(calYear + 2, 0, 1),
+    );
+
+    renderCalendar();
+    renderUpcoming();
+  } catch (err) {
+    console.error("Backend calendar fetch failed:", err);
+    grid.innerHTML = `<div class="cal-error">The stars are silent. (Could not load schedule)</div>`;
   }
 }
 
