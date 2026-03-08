@@ -1,5 +1,8 @@
 type Nullable<T> = T | null;
 
+const API_BASE =
+  process.env.REACT_APP_API_URL || "https://lorerealm-website.onrender.com";
+
 const TIMING = {
   CLOSE_DELAY: 500,
   SPINE_FADE: 900,
@@ -795,7 +798,7 @@ async function fetchCalendar() {
   let lastErr;
   for (const proxy of CAL_PROXIES) {
     try {
-      const res = await fetch(proxy + encodeURIComponent(ICAL_URL));
+      const res = await fetch(`${API_BASE}/api/streams`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const text = await res.text();
       if (!text.includes("BEGIN:VCALENDAR")) throw new Error("Not iCal data");
@@ -808,8 +811,8 @@ async function fetchCalendar() {
       renderUpcoming();
       return;
     } catch (err) {
-      console.warn(`Calendar proxy failed (${proxy}):`, err);
-      lastErr = err;
+      console.error("Backend calendar fetch failed:", err);
+      grid.innerHTML = `<div class="cal-error">The stars are silent. (Could not load schedule)</div>`;
     }
   }
   console.error("All calendar proxies failed:", lastErr);

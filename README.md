@@ -1,5 +1,5 @@
 # LoreRealm Website
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9709fc3c-5be8-4ff9-a03d-ff69f801f4f0/deploy-status)](https://app.netlify.com/projects/lorerealm/deploys)
 ![HTML](https://img.shields.io/badge/HTML-5E5CFF?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-1F62FF?style=for-the-badge&logo=css3&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-2D79C7?style=for-the-badge&logo=typescript&logoColor=white)
